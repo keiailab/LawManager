@@ -2,6 +2,7 @@ import type { NavItem } from '../types';
 
 export const proposalNavItems: NavItem[] = [
   { to: '/proposal', label: '제안 개요', description: '프로젝트 이해와 제안 방향' },
+  { to: '/proposal/prd', label: 'PRD', description: 'Product Requirements Document 두 버전 비교' },
   { to: '/proposal/ia', label: 'IA', description: '전체 시스템 IA와 범위 표시' },
   { to: '/proposal/screens', label: '화면 전략', description: '핵심 화면별 시연 설계' },
   { to: '/proposal/checklist', label: '체크리스트', description: '요청서 요구사항 추적' },
@@ -72,6 +73,137 @@ export const proposalTrustHighlights = [
   '시연 중 언제든 데모 초기화 가능해 동일한 영업/제안 흐름 반복 가능',
   'localStorage 기반 상태 저장으로 브라우저 단독 시연 환경에서 안정적 반복 재현'
 ];
+
+export const proposalPrdVersions = [
+  {
+    id: 'v1',
+    label: 'Version 1',
+    mode: 'Execution Lens',
+    title: '구현 계획형 PRD',
+    summary: '빈 저장소에서 React 단일 앱으로 제안서 사이트를 조립하는 실행 중심 문서입니다.',
+    intent: '무엇을 어떤 순서로 구현할지, 어떤 테스트로 검증할지 빠르게 합의하는 데 초점을 둡니다.',
+    audience: 'PM, 프론트엔드 구현자, QA',
+    timing: '개발 착수 직전, 태스크 분해와 검증 설계 단계',
+    primaryDeliverable: '구현 순서, 태스크 범위, 테스트 기준',
+    sourceTitle: '2026-04-02-proposal-website.md',
+    sourceDescription: '프로젝트 스캐폴딩부터 페이지 구현, 테스트 전략까지 단계형으로 정리한 실행 문서',
+    emphasis: ['스캐폴딩', '데이터 모델', '라우팅', '페이지별 구현', '테스트 순서'],
+    highlights: [
+      '실제 구현 순서에 맞춰 페이지와 테스트를 함께 정의합니다.',
+      '체크리스트 데이터를 단일 진실 원천으로 두는 구조를 명확히 못 박습니다.',
+      '납품 기준을 문서가 아니라 동작하는 사이트와 자동화 테스트로 둡니다.'
+    ],
+    sections: [
+      {
+        heading: 'Goal',
+        body: [
+          '제작요청서의 요구사항을 빠짐없이 반영한 하이브리드형 제안서 웹사이트를 구현하고 자동화 테스트로 검증합니다.',
+          '단일 앱 구조 안에서 메인 제안서와 상세 페이지를 모두 완성하는 것이 핵심입니다.'
+        ]
+      },
+      {
+        heading: 'Architecture',
+        body: [
+          '정적 데이터 소스를 중심으로 메인 제안서와 상세 페이지를 구성합니다.',
+          '체크리스트 데이터를 단일 진실 원천으로 두고 IA, 화면전략, 시연흐름 페이지가 같은 데이터를 재사용합니다.'
+        ]
+      },
+      {
+        heading: 'Execution Plan',
+        body: [
+          '프로젝트 스캐폴딩부터 체크리스트 데이터, 라우팅, 홈, IA, 화면 전략, 체크리스트, 데모 플로우까지 순차적으로 구현합니다.',
+          '각 단계는 먼저 실패하는 테스트를 만들고, 최소 구현으로 통과시키는 흐름으로 설계됩니다.'
+        ]
+      },
+      {
+        heading: 'Validation',
+        body: [
+          'Vitest, Testing Library, Playwright를 사용해 데이터, UI, 주요 탐색 경로를 검증합니다.',
+          '문서가 아니라 실제 동작하는 제안서 사이트를 납품 기준으로 삼습니다.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'v2',
+    label: 'Version 2',
+    mode: 'Strategy Lens',
+    title: '설계 해석형 PRD',
+    summary: '고객 설득 논리와 제품 감각을 어떻게 페이지 구조로 번역할지 정리한 해석 중심 문서입니다.',
+    intent: '왜 이 범위가 중요하고, 어떤 UX 장면으로 고객을 설득할지를 먼저 선명하게 만드는 데 초점을 둡니다.',
+    audience: '제안 담당자, PM, 디자인 리드',
+    timing: '범위 합의, 제안 메시지 정리, 화면 방향 확정 단계',
+    primaryDeliverable: '요구사항 해석, 설득 포인트, UX 구조',
+    sourceTitle: '2026-04-02-proposal-website-design.md',
+    sourceDescription: '제작요청서를 어떻게 읽고 어떤 정보 구조와 디자인 톤으로 번역할지 설명한 설계 문서',
+    emphasis: ['요구사항 해석', '우선순위', '사이트 정보 구조', '디자인 방향', '시연 장면'],
+    highlights: [
+      'AI 기능보다 조직, 권한, 결재, 기준관리 같은 통제 구조를 우선 설득 포인트로 둡니다.',
+      '메인 요약과 상세 근거 페이지가 한 세트로 움직여야 한다는 원칙을 정리합니다.',
+      '제안서인데 이미 제품 운영 구조가 보이는 톤을 목표로 디자인 방향을 고정합니다.'
+    ],
+    sections: [
+      {
+        heading: 'Product Framing',
+        body: [
+          '이 사이트는 단순 소개 자료가 아니라 대기업 고객 시연용 제안서이자 내부 실행용 요구사항 추적 보드 역할을 동시에 수행해야 합니다.',
+          '핵심 성공 기준은 요구사항 누락 없이, 어느 페이지와 시연 장면으로 반영되는지 바로 읽히는 구조입니다.'
+        ]
+      },
+      {
+        heading: 'Requirement Interpretation',
+        body: [
+          '고객이 원하는 것은 단일 AI 계약 분석기가 아니라 조직, 권한, 결재, 기준관리까지 포함한 엔터프라이즈 운영 구조입니다.',
+          '따라서 설득 포인트도 AI 성능보다 통제 구조와 운영 맥락이 먼저 보여야 합니다.'
+        ]
+      },
+      {
+        heading: 'Information Architecture',
+        body: [
+          '메인 페이지는 제안 개요를 요약하고, IA, 화면 전략, 체크리스트, 데모 플로우 같은 상세 페이지가 근거를 분리해서 설명합니다.',
+          '메인 요약과 상세 근거가 한 세트로 움직여야 제안서와 프로토타입 사이의 간극이 줄어듭니다.'
+        ]
+      },
+      {
+        heading: 'Design Direction',
+        body: [
+          '톤은 엔터프라이즈 B2B, ServiceNow나 Salesforce 계열처럼 안정적이고 정보 밀도가 높은 방향을 지향합니다.',
+          '짙은 네이비와 슬레이트 기반 팔레트에 청록, 앰버, 레드 액센트를 사용해 운영 화면 같은 인상을 강화합니다.'
+        ]
+      },
+      {
+        heading: 'Demo Translation',
+        body: [
+          '각 기능은 설명이 아니라 실제 시연 장면으로 번역되어야 합니다.',
+          '예를 들어 조직도와 권한 관리는 회사 전환 시 메뉴와 데이터가 바뀌는 장면, 체크리스트와 플레이북은 버전 관리 테이블과 리스크 기준으로 보여주는 식입니다.'
+        ]
+      }
+    ]
+  }
+] as const;
+
+export const proposalPrdComparePoints = [
+  {
+    label: '주된 질문',
+    v1: '무엇을 어떤 순서로 구현할 것인가',
+    v2: '왜 이 구조가 고객 설득에 유리한가'
+  },
+  {
+    label: '문서 성격',
+    v1: '실행 체크리스트와 작업 순서',
+    v2: '요구사항 해석과 UX 방향성'
+  },
+  {
+    label: '사용 시점',
+    v1: '개발 착수와 테스트 설계 직전',
+    v2: '범위 합의와 제안 메시지 정리 단계'
+  },
+  {
+    label: '가장 중요한 산출',
+    v1: '구현 태스크 분해와 검증 계획',
+    v2: 'IA, 화면 전략, 시연 장면, 디자인 톤'
+  }
+] as const;
 
 export const iaSections = [
   {

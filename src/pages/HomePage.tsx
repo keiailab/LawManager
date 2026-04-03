@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import {
   deliverables,
   proposalHighlights,
+  proposalPrdVersions,
   proposalPlatformPillars,
   proposalRoiStats,
   proposalTrustHighlights,
@@ -102,6 +104,49 @@ export function HomePage() {
             시스템 구조를 중심으로 제안합니다.
           </p>
         </article>
+      </section>
+
+      <section className="page">
+        <div className="panel-top">
+          <div className="panel-copy-group">
+            <p className="eyebrow">Product Requirements Document</p>
+            <h2>PRD 두 버전 구조</h2>
+            <p className="panel-description">
+              같은 프로젝트를 실행 문서와 설계 해석 문서로 나눠 보면, 구현 순서와 고객 설득 논리를 동시에
+              붙잡을 수 있습니다.
+            </p>
+          </div>
+          <div className="panel-action">
+            <Link className="primary-link small-link" to="/proposal/prd">
+              PRD 열기
+            </Link>
+          </div>
+        </div>
+
+        <div className="cards-grid">
+          {proposalPrdVersions.map((version) => (
+            <article key={version.id} className="info-panel prd-preview-card">
+              <div className="panel-header prd-preview-header">
+                <div>
+                  <span className="prd-version-label">{version.label}</span>
+                  <h3>{version.title}</h3>
+                </div>
+                <span className="tag tag-accent">{version.mode}</span>
+              </div>
+              <p className="panel-copy">{version.summary}</p>
+              <div className="prd-preview-meta-grid">
+                <div className="meta-block">
+                  <strong>문서 목적</strong>
+                  <p>{version.intent}</p>
+                </div>
+                <div className="meta-block">
+                  <strong>기준 문서</strong>
+                  <p>{version.sourceTitle}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="page">
