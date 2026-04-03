@@ -6,22 +6,22 @@ import { useDemoSnapshot } from '../hooks/useDemoState';
 function getRoleTitle(role: string) {
   switch (role) {
     case '법무 총괄 관리자':
-      return 'System Administrator';
+      return '시스템 관리자';
     case '계약 운영 책임자':
-      return 'Legal Counsel Senior';
+      return '시니어 법무 담당';
     default:
-      return 'Approval Controller';
+      return '승인 운영 담당';
   }
 }
 
 function getAccessLevel(role: string) {
   switch (role) {
     case '법무 총괄 관리자':
-      return 'FULL_ACCESS';
+      return '전체 권한';
     case '계약 운영 책임자':
-      return 'READ_WRITE';
+      return '읽기/쓰기';
     default:
-      return 'RESTRICTED';
+      return '제한됨';
   }
 }
 
@@ -65,13 +65,13 @@ export function AdminPlaybooksPage() {
   const governanceLogs = [
     {
       time: '2026-04-03 14:22',
-      actor: 'Administrator',
+      actor: '관리자',
       type: '권한변경',
       detail: `'${snapshot.selectedCompany.name}' 조직의 법무 총괄 관리자 권한이 최신 정책 세트와 동기화되었습니다.`
     },
     {
       time: '2026-04-03 11:05',
-      actor: 'System',
+      actor: '시스템',
       type: '보안경고',
       detail: `외부 네트워크에서 '${selected.contractType}' 플레이북 편집 시도가 감지되어 관리자 검토 대기 상태로 전환되었습니다.`
     },
@@ -87,7 +87,7 @@ export function AdminPlaybooksPage() {
     <div className="governance-page">
       <section className="governance-header">
         <div className="governance-copy">
-          <p className="governance-eyebrow">Governance & Settings</p>
+          <p className="governance-eyebrow">거버넌스 및 설정</p>
           <h1>거버넌스 설정</h1>
           <p>
             조직 권한 체계, 정책 버전, 승인 워크플로우, 보안 규칙을 하나의 관리자 허브에서 조정하는
@@ -124,7 +124,7 @@ export function AdminPlaybooksPage() {
         <section className="governance-card">
           <div className="governance-card-head">
             <h2>보안 정책 요약</h2>
-            <span>Policy Snapshot</span>
+            <span>정책 스냅샷</span>
           </div>
           <div className="governance-policy-list">
             {policySummary.map((item) => (
@@ -144,11 +144,11 @@ export function AdminPlaybooksPage() {
             <div className="governance-pill-row">
               <span className="governance-count-pill">전체 {memberships.length}</span>
               <span className="governance-count-pill is-accent">
-                Admin {memberships.filter((item) => item.role === '법무 총괄 관리자').length}
+                관리자 {memberships.filter((item) => item.role === '법무 총괄 관리자').length}
               </span>
             </div>
           </div>
-          <span>Roles & Permissions</span>
+          <span>역할 및 권한</span>
         </div>
 
         <div className="governance-table-wrap">
@@ -207,7 +207,7 @@ export function AdminPlaybooksPage() {
                   {step.order === 1 ? 'edit_note' : step.order === 2 ? 'psychology' : step.parallel ? 'hub' : 'verified_user'}
                 </span>
               </div>
-              <strong>Step {step.order}</strong>
+              <strong>{step.order}단계</strong>
               <p>{step.name}</p>
               <span>{step.role}</span>
             </div>
@@ -283,7 +283,7 @@ export function AdminPlaybooksPage() {
         <section className="governance-card">
           <div className="governance-card-head">
             <h2>최근 거버넌스 변경 이력</h2>
-            <span>Global Activity Log</span>
+            <span>통합 활동 로그</span>
           </div>
           <div className="governance-log-list">
             {governanceLogs.map((item) => (

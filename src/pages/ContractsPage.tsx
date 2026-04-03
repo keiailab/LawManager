@@ -22,15 +22,15 @@ const riskLabels: Array<{ id: RiskTier; label: string }> = [
 function getRiskMeta(contract: ContractRecord) {
   switch (contract.status) {
     case '리스크 검토 필요':
-      return { tier: 'high' as const, label: 'CRITICAL', score: 84 };
+      return { tier: 'high' as const, label: '긴급', score: 84 };
     case '검토중':
-      return { tier: 'medium' as const, label: 'WARNING', score: 58 };
+      return { tier: 'medium' as const, label: '주의', score: 58 };
     case '결재 대기':
-      return { tier: 'low' as const, label: 'CAUTION', score: 42 };
+      return { tier: 'low' as const, label: '대기', score: 42 };
     case '승인 완료':
-      return { tier: 'low' as const, label: 'SAFE', score: 12 };
+      return { tier: 'low' as const, label: '안정', score: 12 };
     default:
-      return { tier: 'low' as const, label: 'DRAFT', score: 8 };
+      return { tier: 'low' as const, label: '초안', score: 8 };
   }
 }
 
@@ -115,7 +115,7 @@ export function ContractsPage() {
     <div className="contracts-page">
       <section className="contracts-page-header">
         <div className="contracts-page-copy">
-          <p className="contracts-page-eyebrow">Contract Repo Azure</p>
+          <p className="contracts-page-eyebrow">계약 저장소</p>
           <h1>계약 관리</h1>
           <p>총 {visibleContracts.length}건의 계약 정보가 현재 조건에 맞게 표시됩니다.</p>
         </div>
@@ -234,7 +234,7 @@ export function ContractsPage() {
                       </span>
                     </td>
                     <td>
-                      <div className="contracts-stage-track" aria-label={`${stageCount} of 3`}>
+                      <div className="contracts-stage-track" aria-label={`${stageCount} / 3 단계`}>
                         {[1, 2, 3].map((step) => (
                           <span
                             key={step}

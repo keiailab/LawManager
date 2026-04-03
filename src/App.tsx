@@ -44,7 +44,7 @@ function ProductLayout({ children }: { children: React.ReactNode }) {
       label="법무법인 프리미엄"
       navItems={navItems}
       variant="product"
-      topbarTitle="The Digital Jurist"
+      topbarTitle="디지털 법무 워크스페이스"
       topbarSubtitle="계약서 심층 분석 시스템"
       headerMode="inline"
       showNavDescriptions
@@ -79,7 +79,7 @@ function ProposalLayout({ children }: { children: React.ReactNode }) {
       label="AI 제안 보드"
       navItems={proposalNavItems}
       variant="proposal"
-      topbarTitle="Proposal Workspace"
+      topbarTitle="제안 워크스페이스"
       topbarSubtitle="프로젝트 이해, IA, 핵심 화면 전략, 체크리스트, 데모 플로우를 하나의 설득 구조로 묶은 제안 보드"
       showThemeSwitch={false}
     >

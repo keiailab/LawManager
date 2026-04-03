@@ -46,9 +46,9 @@ export function ReviewPage() {
   const safeCount = Math.max(12 - criticalCount - warningCount, 1);
 
   const scoreCards = [
-    { label: 'CRITICAL', value: criticalCount, caption: '치명적 위험 항목', tone: 'danger' as const },
-    { label: 'WARNING', value: warningCount, caption: '주의 요망 항목', tone: 'warning' as const },
-    { label: 'SAFE', value: safeCount, caption: '표준 준수 항목', tone: 'success' as const }
+    { label: '치명', value: criticalCount, caption: '치명적 위험 항목', tone: 'danger' as const },
+    { label: '주의', value: warningCount, caption: '주의 요망 항목', tone: 'warning' as const },
+    { label: '안정', value: safeCount, caption: '표준 준수 항목', tone: 'success' as const }
   ];
 
   const reviewChecklist = [
@@ -101,7 +101,7 @@ export function ReviewPage() {
           <div className="review-paper">
             <header className="review-paper-header">
               <div className="review-paper-title-block">
-                <p className="review-paper-eyebrow">AI Analysis &amp; Review</p>
+                <p className="review-paper-eyebrow">AI 검토</p>
                 <h1>{detail.contract.title}</h1>
                 <p className="review-paper-subtitle">
                   {detail.contract.type} · {detail.contract.counterparty} · {detail.review?.generatedAt ?? detail.contract.uploadedAt}
@@ -160,7 +160,7 @@ export function ReviewPage() {
           <section className="review-analysis-card">
             <div className="review-analysis-head">
               <h2>상세 위험 분석</h2>
-              <span>Total {detail.clauseReviews.length} issues detected</span>
+              <span>총 {detail.clauseReviews.length}건 감지</span>
             </div>
             <div className="review-issue-list">
               {detail.clauseReviews.map((item) => (
@@ -179,7 +179,7 @@ export function ReviewPage() {
           <section className="review-analysis-card">
             <div className="review-analysis-head">
               <h2>내부 가이드라인 준수 현황</h2>
-              <span>Checklist sync</span>
+              <span>체크리스트 동기화</span>
             </div>
             <ul className="review-checklist">
               {reviewChecklist.map((item) => (

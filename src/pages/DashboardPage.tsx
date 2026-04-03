@@ -121,7 +121,7 @@ export function DashboardPage() {
     <div className="dashboard-page">
       <section className="dashboard-hero-block">
         <div className="dashboard-hero-copy">
-          <p className="dashboard-overline">Legal AI Insight</p>
+          <p className="dashboard-overline">법무 운영 인사이트</p>
           <h1>법무 운영 대시보드</h1>
           <p className="dashboard-hero-description">
             회사와 권한에 따라 운영 KPI, 우선 검토 계약, 결재 정체 구간, 최근 활동이 즉시 재구성되는 제품형
@@ -155,7 +155,7 @@ export function DashboardPage() {
         </label>
 
         <div className="dashboard-context-card">
-          <span>Current Workspace</span>
+          <span>현재 워크스페이스</span>
           <strong>{snapshot.selectedCompany.name}</strong>
           <p>
             {snapshot.selectedCompany.sector} · {snapshot.selectedCompany.userRole}
@@ -163,7 +163,7 @@ export function DashboardPage() {
         </div>
 
         <div className="dashboard-context-card">
-          <span>Governance Focus</span>
+          <span>운영 기준 포커스</span>
           <strong>정책 기준, 승인 흐름, 리스크 계약 우선순위</strong>
           <p>단일 AI 기능보다 운영 통제 구조가 먼저 읽히도록 정보 밀도를 조정했습니다.</p>
         </div>
@@ -192,7 +192,7 @@ export function DashboardPage() {
           <section className="dashboard-surface">
             <div className="dashboard-surface-head">
               <div>
-                <p className="dashboard-surface-eyebrow">Priority Queue</p>
+                <p className="dashboard-surface-eyebrow">우선순위 큐</p>
                 <h2>우선 검토 과제</h2>
                 <p>현재 회사 기준으로 검토 또는 결재가 정체된 계약을 먼저 보여줍니다.</p>
               </div>
@@ -258,7 +258,7 @@ export function DashboardPage() {
           <section className="dashboard-surface">
             <div className="dashboard-surface-head">
               <div>
-                <p className="dashboard-surface-eyebrow">Activity Stream</p>
+                <p className="dashboard-surface-eyebrow">활동 스트림</p>
                 <h2>최근 활동 기록</h2>
                 <p>업로드, AI 리뷰, 결재 진행 상황을 타임라인으로 이어서 보여줍니다.</p>
               </div>
@@ -294,7 +294,7 @@ export function DashboardPage() {
 
             {topRiskContract ? (
               <article className="dashboard-ai-card">
-                <p className="dashboard-ai-kicker">Top Risk Factor</p>
+                <p className="dashboard-ai-kicker">최우선 리스크</p>
                 <h3>{topRiskContract.title}</h3>
                 <p>{topRiskContract.summary}</p>
                 <div className="dashboard-ai-meta">
@@ -307,7 +307,7 @@ export function DashboardPage() {
             ) : null}
 
             <article className="dashboard-ai-card">
-              <p className="dashboard-ai-kicker is-warning">Recurring Issue</p>
+              <p className="dashboard-ai-kicker is-warning">반복 검토 이슈</p>
               <h3>반복되는 검토 패턴</h3>
               <p>{recurringIssue}</p>
             </article>
@@ -326,7 +326,7 @@ export function DashboardPage() {
           <section className="dashboard-surface dashboard-template-panel">
             <div className="dashboard-surface-head">
               <div>
-                <p className="dashboard-surface-eyebrow">Quick Actions</p>
+                <p className="dashboard-surface-eyebrow">빠른 실행</p>
                 <h2>자주 사용하는 템플릿</h2>
               </div>
             </div>

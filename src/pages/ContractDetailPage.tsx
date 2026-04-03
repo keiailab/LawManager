@@ -5,11 +5,11 @@ import { useDemoSnapshot } from '../hooks/useDemoState';
 import type { ReviewRiskLevel } from '../types';
 
 const lifecycleSteps = [
-  { key: 'draft', label: 'Drafting' },
-  { key: 'review', label: 'Internal Review' },
-  { key: 'legal', label: 'Legal Approval' },
-  { key: 'execute', label: 'Execution' },
-  { key: 'archive', label: 'Archived' }
+  { key: 'draft', label: '초안 작성' },
+  { key: 'review', label: '내부 검토' },
+  { key: 'legal', label: '법무 승인' },
+  { key: 'execute', label: '체결 진행' },
+  { key: 'archive', label: '보관 완료' }
 ];
 
 function getRiskTone(level: ReviewRiskLevel) {
@@ -80,9 +80,9 @@ export function ContractDetailPage() {
     .filter((value, index, list) => list.indexOf(value) === index)
     .slice(0, 4);
   const versionItems = [
-    { version: 'v3.2', label: 'Current review build', meta: detail.review?.generatedAt ?? detail.contract.uploadedAt },
-    { version: 'v3.1', label: 'Metadata aligned', meta: detail.contract.uploadedAt },
-    { version: 'v3.0', label: 'Original draft uploaded', meta: detail.contract.uploadedAt }
+    { version: 'v3.2', label: '현재 검토본', meta: detail.review?.generatedAt ?? detail.contract.uploadedAt },
+    { version: 'v3.1', label: '메타데이터 정합화', meta: detail.contract.uploadedAt },
+    { version: 'v3.0', label: '원본 초안 업로드', meta: detail.contract.uploadedAt }
   ];
 
   return (
@@ -90,10 +90,10 @@ export function ContractDetailPage() {
       <section className="contract-hub-header">
         <div className="contract-hub-copy">
           <div className="contract-hub-meta-row">
-            <Badge tone={getReviewBadgeTone(detail.contract.status)}>Active Review</Badge>
+            <Badge tone={getReviewBadgeTone(detail.contract.status)}>검토 진행중</Badge>
             <span>최종 수정 {detail.review?.generatedAt ?? detail.contract.uploadedAt}</span>
           </div>
-          <p className="contract-hub-eyebrow">Contract Hub Pro</p>
+          <p className="contract-hub-eyebrow">계약 상세 허브</p>
           <h1>{detail.contract.title}</h1>
           <p>
             계약 메타데이터, AI 리스크, 승인 흐름, 최근 활동을 하나의 허브에서 이어보는 Stitch 기준
@@ -106,66 +106,56 @@ export function ContractDetailPage() {
             <span aria-hidden="true" className="material-symbols-outlined">
               picture_as_pdf
             </span>
-            <span>Original PDF</span>
+            <span>원본 PDF</span>
           </button>
           <button type="button" className="contract-hub-secondary-action">
             <span aria-hidden="true" className="material-symbols-outlined">
               edit_note
             </span>
-            <span>Edit Metadata</span>
+            <span>메타데이터 수정</span>
           </button>
           <Link className="contract-hub-primary-action" to={`/reviews/${detail.contract.id}`}>
             <span aria-hidden="true" className="material-symbols-outlined">
               bolt
             </span>
-            <span>Run Risk Analysis</span>
+            <span>AI 리스크 분석</span>
           </Link>
         </div>
       </section>
 
       <div className="contract-hub-tab-strip" role="tablist" aria-label="계약 상세 탭">
-        <button type="button" className="contract-hub-tab is-active">
-          개요 (Overview)
-        </button>
-        <button type="button" className="contract-hub-tab">
-          AI 분석 (AI Insights)
-        </button>
-        <button type="button" className="contract-hub-tab">
-          워크플로우 (Workflow)
-        </button>
-        <button type="button" className="contract-hub-tab">
-          활동 (Activity)
-        </button>
-        <button type="button" className="contract-hub-tab">
-          버전 (Versions)
-        </button>
+        <button type="button" className="contract-hub-tab is-active">개요</button>
+        <button type="button" className="contract-hub-tab">AI 분석</button>
+        <button type="button" className="contract-hub-tab">워크플로우</button>
+        <button type="button" className="contract-hub-tab">활동</button>
+        <button type="button" className="contract-hub-tab">버전</button>
       </div>
 
       <div className="contract-hub-grid">
         <aside className="contract-hub-sidebar">
           <section className="contract-hub-card">
-            <p className="contract-hub-section-label">Contract Metadata</p>
+            <p className="contract-hub-section-label">계약 메타데이터</p>
             <div className="contract-hub-metadata-list">
               <div className="contract-hub-metadata-item">
-                <span>Vendor</span>
+                <span>거래 상대방</span>
                 <strong>{detail.contract.counterparty}</strong>
               </div>
               <div className="contract-hub-metadata-item">
-                <span>Total Contract Value</span>
+                <span>계약 금액</span>
                 <strong>{detail.extraction?.amount ?? detail.contract.amount}</strong>
               </div>
               <div className="contract-hub-metadata-item">
-                <span>Effective Dates</span>
+                <span>계약 기간</span>
                 <strong>{detail.contract.period}</strong>
               </div>
               <div className="contract-hub-metadata-item">
-                <span>Contract Type</span>
+                <span>계약 유형</span>
                 <strong>{detail.contract.type}</strong>
               </div>
             </div>
 
             <div className="contract-hub-contact-list">
-              <span>Key Contacts</span>
+              <span>주요 참여자</span>
               <div className="contract-hub-contact-stack">
                 {participants.map((item) => (
                   <div key={item} className="contract-hub-contact-chip" title={item}>
@@ -176,7 +166,7 @@ export function ContractDetailPage() {
             </div>
 
             <div className="contract-hub-clause-block">
-              <span>Key Clauses</span>
+              <span>핵심 조항</span>
               <ul>
                 {(detail.extraction?.keyClauses ?? []).map((clause) => (
                   <li key={clause}>{clause}</li>
@@ -215,8 +205,8 @@ export function ContractDetailPage() {
           <div className="contract-hub-panel-grid">
             <section className="contract-hub-card contract-hub-risk-summary-card">
               <div className="contract-hub-card-head">
-                <h2>AI Risk Summary</h2>
-                <span>View All {detail.clauseReviews.length} Insights</span>
+                <h2>AI 리스크 요약</h2>
+                <span>전체 {detail.clauseReviews.length}건 보기</span>
               </div>
               <div className="contract-hub-risk-score">
                 <strong>{riskScore}%</strong>
@@ -237,7 +227,7 @@ export function ContractDetailPage() {
 
             <section className="contract-hub-card">
               <div className="contract-hub-card-head">
-                <h2>Recent Activity</h2>
+                <h2>최근 활동</h2>
                 <span>실시간 작업 로그</span>
               </div>
               <div className="contract-hub-activity-list">
@@ -258,8 +248,8 @@ export function ContractDetailPage() {
           <div className="contract-hub-panel-grid contract-hub-panel-grid-secondary">
             <section className="contract-hub-card">
               <div className="contract-hub-card-head">
-                <h2>Clause Variance & Review</h2>
-                <span>Metadata + Review</span>
+                <h2>조항 편차 및 검토</h2>
+                <span>메타데이터 + 검토</span>
               </div>
               <div className="contract-hub-review-table">
                 {detail.clauseReviews.map((item) => (
@@ -279,8 +269,8 @@ export function ContractDetailPage() {
 
             <section className="contract-hub-card">
               <div className="contract-hub-card-head">
-                <h2>Versions & Workflow Notes</h2>
-                <span>Approval + Versions</span>
+                <h2>버전 및 워크플로우 노트</h2>
+                <span>승인 + 버전</span>
               </div>
               <div className="contract-hub-version-list">
                 {versionItems.map((item) => (

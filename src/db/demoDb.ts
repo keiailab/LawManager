@@ -797,24 +797,24 @@ export function getVisibleProductNav(activeContractId?: string) {
   const resolvedContractId = activeContractId ?? selectedCompanyContracts[0]?.id ?? state.contracts[0]?.id ?? 'ct-001';
 
   return [
-    { to: '/', label: '대시보드', description: 'Dashboard Pro' },
-    { to: '/contracts', label: '계약 관리', description: 'Contract Repo Azure' },
+    { to: '/', label: '대시보드', description: '운영 KPI와 최근 활동' },
+    { to: '/contracts', label: '계약 관리', description: '계약 목록과 필터 허브' },
     {
       to: `/contracts/${resolvedContractId}`,
       label: '계약 상세 정보',
-      description: 'Contract Hub Pro',
+      description: '메타데이터와 리스크 허브',
       matchPrefixes: ['/contracts/ct-', '/contracts/ct-upload-']
     },
     {
       to: `/reviews/${resolvedContractId}`,
       label: 'AI 검토',
-      description: 'AI Analysis & Review',
+      description: '조항별 AI 분석과 권고',
       matchPrefixes: ['/reviews/']
     },
     {
       to: '/admin/playbooks',
       label: '거버넌스 설정',
-      description: 'Governance & Settings',
+      description: '권한과 정책 운영 관리',
       matchPrefixes: ['/admin/playbooks', '/admin/approvals', '/admin/org']
     }
   ];

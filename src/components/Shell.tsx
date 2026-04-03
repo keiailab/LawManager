@@ -129,8 +129,8 @@ export function Shell({
   const resolvedSubtitle =
     topbarSubtitle ??
     (variant === 'product' ? '계약 검토, 승인, 정책 운영을 하나의 워크스페이스로 연결합니다.' : '요구사항 추적과 시연 전략을 동시에 보여주는 제안 보드');
-  const resolvedKicker = variant === 'product' ? 'Enterprise Legal Ops' : 'Proposal Control';
-  const resolvedSidebarCopy = variant === 'product' ? 'Senior Legal Counsel Workspace' : 'IA, Demo Flow, Scope Tracking';
+  const resolvedKicker = variant === 'product' ? '기업 법무 운영' : '제안 보드';
+  const resolvedSidebarCopy = variant === 'product' ? '계약 검토와 승인 운영 허브' : 'IA, 데모 플로우, 범위 추적';
 
   return (
     <div className={`app-shell shell-${variant} shell-header-${headerMode}`}>
