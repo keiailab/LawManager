@@ -11,8 +11,10 @@ describe('ContractsPage', () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByRole('heading', { name: '계약 허브' })).toBeInTheDocument();
-    expect(screen.getByText('계약서 업로드')).toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: '상세 보기' }).length).toBeGreaterThan(0);
+    expect(await screen.findByRole('heading', { name: '계약 관리' })).toBeInTheDocument();
+    expect(screen.getByText('신규 계약 등록')).toBeInTheDocument();
+    expect(screen.getByText('필터 초기화')).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: 'AI 분석' }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: '보기' }).length).toBeGreaterThan(0);
   });
 });

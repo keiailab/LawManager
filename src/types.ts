@@ -28,6 +28,7 @@ export interface NavItem {
   to: string;
   label: string;
   description: string;
+  matchPrefixes?: string[];
 }
 
 export interface DemoCompany {

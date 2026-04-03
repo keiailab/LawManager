@@ -311,6 +311,14 @@ function getStorage(): Storage | null {
     return null;
   }
 
+  if (
+    typeof window.localStorage.getItem !== 'function' ||
+    typeof window.localStorage.setItem !== 'function' ||
+    typeof window.localStorage.removeItem !== 'function'
+  ) {
+    return null;
+  }
+
   return window.localStorage;
 }
 
@@ -453,6 +461,18 @@ export function getDashboardSnapshot(): DashboardSnapshot {
       userRole: membership?.role ?? selectedCompany.userRole
     },
     metrics: metric
+  };
+}
+
+export function getCurrentUserProfile() {
+  const state = loadState();
+  const user = state.users.find((item) => item.id === state.settings.selectedUserId);
+  const membership = getCurrentMembership(state);
+
+  return {
+    name: user?.name ?? '박준호',
+    email: user?.email ?? 'juno.park@hankyul.com',
+    role: membership?.role ?? '법무 총괄 관리자'
   };
 }
 
@@ -771,25 +791,31 @@ export function listActivities() {
     .sort((left, right) => right.createdAt.localeCompare(left.createdAt));
 }
 
-export function getVisibleProductNav() {
+export function getVisibleProductNav(activeContractId?: string) {
   const state = loadState();
-  const membership = getCurrentMembership(state);
-  const isAdmin = membership?.role === '법무 총괄 관리자';
+  const selectedCompanyContracts = state.contracts.filter((contract) => contract.companyId === state.settings.selectedCompanyId);
+  const resolvedContractId = activeContractId ?? selectedCompanyContracts[0]?.id ?? state.contracts[0]?.id ?? 'ct-001';
 
-  const nav = [
-    { to: '/', label: '대시보드', description: '운영 KPI와 최근 활동' },
-    { to: '/contracts', label: '계약', description: '계약 목록과 상세 허브' },
-    { to: '/search', label: '검색', description: '자연어 계약 검색' },
-    { to: '/demo', label: '시연 모드', description: '고객 시연 순서 안내' }
+  return [
+    { to: '/', label: '대시보드', description: 'Dashboard Pro' },
+    { to: '/contracts', label: '계약 관리', description: 'Contract Repo Azure' },
+    {
+      to: `/contracts/${resolvedContractId}`,
+      label: '계약 상세 정보',
+      description: 'Contract Hub Pro',
+      matchPrefixes: ['/contracts/ct-', '/contracts/ct-upload-']
+    },
+    {
+      to: `/reviews/${resolvedContractId}`,
+      label: 'AI 검토',
+      description: 'AI Analysis & Review',
+      matchPrefixes: ['/reviews/']
+    },
+    {
+      to: '/admin/playbooks',
+      label: '거버넌스 설정',
+      description: 'Governance & Settings',
+      matchPrefixes: ['/admin/playbooks', '/admin/approvals', '/admin/org']
+    }
   ];
-
-  if (isAdmin) {
-    nav.push(
-      { to: '/admin/playbooks', label: '기준관리', description: '플레이북과 체크리스트 관리' },
-      { to: '/admin/approvals', label: '결재 빌더', description: '결재 프로세스 설계' },
-      { to: '/admin/org', label: '조직/권한', description: '조직도와 회사별 역할 관리' }
-    );
-  }
-
-  return nav;
 }

@@ -1,6 +1,6 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { proposalNavItems } from './data/site';
-import { getVisibleProductNav, resetDemoDatabase } from './db/demoDb';
+import { getCurrentUserProfile, getDashboardSnapshot, getVisibleProductNav, resetDemoDatabase } from './db/demoDb';
 import { useDemoSeed } from './hooks/useDemoSeed';
 import { useDemoSnapshot } from './hooks/useDemoState';
 import { HomePage } from './pages/HomePage';
@@ -8,6 +8,7 @@ import { IAPage } from './pages/IAPage';
 import { ScreensPage } from './pages/ScreensPage';
 import { ChecklistPage } from './pages/ChecklistPage';
 import { DemoFlowPage } from './pages/DemoFlowPage';
+import { ProposalPrdPage } from './pages/ProposalPrdPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ContractsPage } from './pages/ContractsPage';
 import { ContractUploadPage } from './pages/ContractUploadPage';
@@ -20,15 +21,41 @@ import { Shell } from './components/Shell';
 import { ContractDetailPage } from './pages/ContractDetailPage';
 import { ReviewPage } from './pages/ReviewPage';
 
+function getActiveContractId(pathname: string) {
+  const contractMatch = pathname.match(/^\/contracts\/([^/]+)$/);
+  if (contractMatch && contractMatch[1] !== 'new') {
+    return contractMatch[1];
+  }
+
+  const reviewMatch = pathname.match(/^\/reviews\/([^/]+)$/);
+  return reviewMatch?.[1];
+}
+
 function ProductLayout({ children }: { children: React.ReactNode }) {
   useDemoSeed();
   useDemoSnapshot();
-  const navItems = getVisibleProductNav();
+  const location = useLocation();
+  const navItems = getVisibleProductNav(getActiveContractId(location.pathname));
+  const snapshot = getDashboardSnapshot();
+  const user = getCurrentUserProfile();
 
   return (
     <Shell
-      label="LawManager Prototype"
+      label="법무법인 프리미엄"
       navItems={navItems}
+      variant="product"
+      topbarTitle="The Digital Jurist"
+      topbarSubtitle="계약서 심층 분석 시스템"
+      headerMode="inline"
+      showNavDescriptions
+      topbarMeta={
+        user ? (
+          <div className="shell-profile-copy">
+            <strong>xxx변호사</strong>
+            <span>{snapshot.selectedCompany.name} · {user.role}</span>
+          </div>
+        ) : null
+      }
       footer={
         <button
           type="button"
@@ -48,7 +75,14 @@ function ProductLayout({ children }: { children: React.ReactNode }) {
 
 function ProposalLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Shell label="Proposal Navigation" navItems={proposalNavItems}>
+    <Shell
+      label="AI 제안 보드"
+      navItems={proposalNavItems}
+      variant="proposal"
+      topbarTitle="Proposal Workspace"
+      topbarSubtitle="프로젝트 이해, IA, 핵심 화면 전략, 체크리스트, 데모 플로우를 하나의 설득 구조로 묶은 제안 보드"
+      showThemeSwitch={false}
+    >
       {children}
     </Shell>
   );
@@ -62,6 +96,14 @@ export default function App() {
         element={
           <ProposalLayout>
             <HomePage />
+          </ProposalLayout>
+        }
+      />
+      <Route
+        path="/proposal/prd"
+        element={
+          <ProposalLayout>
+            <ProposalPrdPage />
           </ProposalLayout>
         }
       />

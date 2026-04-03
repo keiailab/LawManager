@@ -13,9 +13,10 @@ describe('App', () => {
 
     expect(await screen.findByRole('heading', { name: '법무 운영 대시보드' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: '대시보드' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '계약' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '검색' })).toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: '시연 모드' }).length).toBeGreaterThan(0);
+    expect(screen.getByRole('link', { name: '계약 관리' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '계약 상세 정보' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'AI 검토' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '거버넌스 설정' })).toBeInTheDocument();
   });
 
   it('보조 제안서 라우트가 유지된다', async () => {
@@ -26,6 +27,7 @@ describe('App', () => {
     );
 
     expect(await screen.findByRole('heading', { name: 'AI 법무관리시스템 프로토타입 제안' })).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: 'PRD' }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', { name: '제안 개요' }).length).toBeGreaterThan(0);
   });
 });
