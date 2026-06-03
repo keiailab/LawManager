@@ -5,7 +5,6 @@ stages: [lint, build]
 
 default:
   image: node:22
-  tags: [keiailab]
 
 lint:
   stage: lint
