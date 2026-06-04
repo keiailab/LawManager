@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "dexie": "^4.4.2",
     "dexie-react-hooks": "^4.4.0",
